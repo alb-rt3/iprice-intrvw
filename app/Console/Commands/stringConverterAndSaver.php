@@ -48,12 +48,27 @@ class stringConverterAndSaver extends Command
                 array_push($sentences, trim($sentence));
             }
         } while (end($sentences) != "");
-        print_r(strtoupper(implode("\n", $sentences)) . "\n");
 
-        collect($sentences)->each(function ($item, $index) {
+        $upperCaseString = $this->printCapsLockStrings($sentences);
+        $alternateString = $this->printAlternateStrings($sentences);
+        $this->saveStringInCsv($sentences);
+
+        return [$upperCaseString, $alternateString];
+    }
+
+    private function printCapsLockStrings($sentences) {
+        $formattedSentences = collect($sentences)->map(function ($sentence, $index) {
+            return strtoupper($sentence);
+        })->toArray();
+        print_r(implode("\n", $formattedSentences). "\n");
+        return $formattedSentences;
+    }
+
+    private function printAlternateStrings($sentences) {
+        return collect($sentences)->each(function ($item, $index) {
             $sentenceIndex = 0;
-            $explodedSentence = collect(str_split($item));
-            $formattedSentence = $explodedSentence->map(function ($item, $index) use (&$sentenceIndex) {
+            $explodedSentences = collect(str_split($item));
+            $formattedSentences = $explodedSentences->map(function ($item, $index) use (&$sentenceIndex) {
                 if (empty(trim($item))) {
                     $sentenceIndex = 0;
                 } else if (ctype_alpha($item)) {
@@ -63,11 +78,15 @@ class stringConverterAndSaver extends Command
                 }
                 return $item;
             });
-            print_r(collect($formattedSentence)->implode('') . "\n");
+            $mergedFormattedSentences = collect($formattedSentences)->implode('');
+            print_r($mergedFormattedSentences. "\n");
+            return $formattedSentences->toArray();
         });
+    }
 
+    private function saveStringInCsv($sentences) {
         if(count($sentences) > 0) {
-            $fp = fopen('file.csv', 'w');
+            $fp = fopen('result.csv', 'w');
 
             foreach ($sentences as $fields) {
                 $formattedArray = str_replace('"', '', str_split($fields));
@@ -76,6 +95,5 @@ class stringConverterAndSaver extends Command
             fclose($fp);
             print_r("CSV created!");
         }
-        return 0;
     }
 }
