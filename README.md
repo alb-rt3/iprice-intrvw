@@ -13,7 +13,7 @@ Several ways to use:
 3. Test
 > php artisan command:stringConverterAndSaver --test
 The result of the CSV will be stored in the root of the folder with name **result.csv**
-4. Using endpoints
+4. Using endpoints (Require you to run `php artisan serve` first OR put it in Laragon)
 > Call this endpoint for caps lock: `http://127.0.0.1:8000/api/capslock?words=albert jonathan lorem lipsum`
 > Call this endpoint for alternate: `http://127.0.0.1:8000/api/alternate` and insert your sentence with 'words' as the key in your response.
 > > Call this endpoint for save a sentence in CSV: `http://127.0.0.1:8000/api/savecsv` and insert your sentence with 'words' as the key in your response.
