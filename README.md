@@ -10,7 +10,8 @@ Several ways to use:
 > php artisan command:stringConverterAndSaver insert-text-here
 2. Multiline input
 > php artisan command:stringConverterAndSaver
-
+3. Test
+> php artisan command:stringConverterAndSaver --test
 The result of the CSV will be stored in the root of the folder with name **result.csv**
 ### Testing:
 Run the command below:

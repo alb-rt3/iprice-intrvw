@@ -11,14 +11,16 @@ class StringConverterAndSaver extends Command
      *
      * @var string
      */
-    protected $signature = 'command:stringConverterAndSaver {text?}';
+    protected $signature = 'command:stringConverterAndSaver {text?} {--test}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'String Converter and Save the result in CSV for iPrice';
+    protected $description = 'String Converter and Save the result in CSV for iPrice. 
+                                    {text : 1-line input if any} 
+                                    {--test= : Whether the command is for testing or not}';
 
     /**
      * Create a new command instance.
@@ -37,10 +39,21 @@ class StringConverterAndSaver extends Command
      */
     public function handle()
     {
-
         $sentences = [];
         $inputArgument = $this->argument('text');
-        if(is_null($inputArgument)){
+        if ($this->option('test')) {
+            $sentences = ["Tigwt7QVSa",
+            "DQUoMYhqoQ",
+            "0XzTVo@nG5V",
+            "xdpvwpIU6i",
+            "gIM4!oBBlaJ",
+            "tHqAHa3Pbp",
+            "knvEFWczXk",
+            "St0S3YHJjr",
+            "x5DSbwhv2w",
+            "KWMk3VLxRX"];
+        }
+        else if(is_null($inputArgument)){
             print("\nWelcome to Albert's program!.\n");
             print("Write as many word as possible. End your input by pressing enter with empty or space in next line\n");
             do {
@@ -48,17 +61,17 @@ class StringConverterAndSaver extends Command
                 if (empty($sentence)) {
                     break;
                 } else {
-                    array_push($sentences, $sentence);
+                    $sentences[] = $sentence;
                 }
             } while (end($sentences) != "");
         }
         else {
-            array_push($sentences, $inputArgument);
+            $sentences[] = $inputArgument;
         }
 
 
-        $upperCaseString = $this->printCapsLockStrings($sentences);
-        $alternateString = $this->printAlternateStrings($sentences);
+        $this->printCapsLockStrings($sentences);
+        $this->printAlternateStrings($sentences);
         $this->saveStringInCsv($sentences);
     }
 
