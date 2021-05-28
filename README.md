@@ -16,3 +16,7 @@ The result of the CSV will be stored in the root of the folder with name **resul
 ### Testing:
 Run the command below:
 > vendor/bin/phpunit tests/Unit/Console/Commands/StringConverterAndSaverTest.php
+
+### Note:
+For converts the string to alternate upper and lower case and outputs it to stdout section, I revert to lowercase on the next alphabet in case the program found a space. For example `a!b3rt   jon` will be `a!B3rT   jOn`
+Also, if the program encounter symbols and number, the next alphabet will be alternated. For example `a!b` will be `a!B`
