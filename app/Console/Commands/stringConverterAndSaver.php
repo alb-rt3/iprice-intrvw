@@ -11,7 +11,7 @@ class StringConverterAndSaver extends Command
      *
      * @var string
      */
-    protected $signature = 'command:stringConverterAndSaver';
+    protected $signature = 'command:stringConverterAndSaver {text?}';
 
     /**
      * The console command description.
@@ -37,23 +37,29 @@ class StringConverterAndSaver extends Command
      */
     public function handle()
     {
-        print("Welcome to Albert's program!.\n");
-        print("Write as many word as possible. End your input by pressing enter with empty or space in next line \n");
+
         $sentences = [];
-        do {
-            $sentence = trim(readline());
-            if (empty($sentence)) {
-                break;
-            } else {
-                array_push($sentences, $sentence);
-            }
-        } while (end($sentences) != "");
+        $inputArgument = $this->argument('text');
+        if(is_null($inputArgument)){
+            print("\nWelcome to Albert's program!.\n");
+            print("Write as many word as possible. End your input by pressing enter with empty or space in next line\n");
+            do {
+                $sentence = trim(readline());
+                if (empty($sentence)) {
+                    break;
+                } else {
+                    array_push($sentences, $sentence);
+                }
+            } while (end($sentences) != "");
+        }
+        else {
+            array_push($sentences, $inputArgument);
+        }
+
 
         $upperCaseString = $this->printCapsLockStrings($sentences);
         $alternateString = $this->printAlternateStrings($sentences);
         $this->saveStringInCsv($sentences);
-
-        return [$upperCaseString, $alternateString];
     }
 
     private function printCapsLockStrings($sentences) {
