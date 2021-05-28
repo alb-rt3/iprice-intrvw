@@ -66,13 +66,14 @@ class StringConverterAndSaver extends Command
             } while (end($sentences) != "");
         }
         else {
-            $sentences[] = $inputArgument;
+            $sentences[] = trim($inputArgument);
         }
 
-
-        $this->printCapsLockStrings($sentences);
-        $this->printAlternateStrings($sentences);
-        $this->saveStringInCsv($sentences);
+        if(count($sentences) > 0 && !empty($sentences[0])) {
+            $this->printCapsLockStrings($sentences);
+            $this->printAlternateStrings($sentences);
+            $this->saveStringInCsv($sentences);
+        }
     }
 
     private function printCapsLockStrings($sentences) {

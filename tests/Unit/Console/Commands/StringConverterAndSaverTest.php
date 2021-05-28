@@ -6,6 +6,11 @@ use Tests\TestCase;
 
 class StringConverterAndSaverTest extends TestCase
 {
+    public function testSuccessfullyWriteEmpty() {
+        $this->artisan("command:stringConverterAndSaver '   '\n");
+        $this->expectOutputString("");
+    }
+
     public function testSuccessfullyWriteOneLine()
     {
         $this->artisan("command:stringConverterAndSaver albert\n");
