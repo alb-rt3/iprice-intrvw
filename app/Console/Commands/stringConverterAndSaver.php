@@ -4,7 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 
-class stringConverterAndSaver extends Command
+class StringConverterAndSaver extends Command
 {
     /**
      * The name and signature of the console command.
@@ -45,7 +45,7 @@ class stringConverterAndSaver extends Command
             if (empty($sentence)) {
                 break;
             } else {
-                array_push($sentences, trim($sentence));
+                array_push($sentences, $sentence);
             }
         } while (end($sentences) != "");
 
